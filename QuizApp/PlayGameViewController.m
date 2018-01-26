@@ -28,6 +28,7 @@
 @property (nonatomic) NSString *correctAnswer;
 @property (nonatomic) int correctGuesses;
 @property (nonatomic) int wrongGuesses;
+@property (nonatomic) int clicks;
 
 @end
 
@@ -40,15 +41,14 @@
 }
 
 - (void)startNewGame {
-    self.checkResultButton.hidden = YES;
+    self.clicks = 0;
     self.questionNr = 1;
-    self.nextButton.hidden = YES;
+    self.questionTitle.text = [NSString stringWithFormat:@"Question %d", self.questionNr];
+    [self enableAnswerButtons];
     self.questionFeedback.text = @"";
     self.game = [[GameModel alloc] init];
     self.correctGuesses = 0;
     self.wrongGuesses = 0;
-    // [GameModel setCorrectGuesses:0];
-    // [GameModel setWrongGuesses:0];
     [self setUpQuestion];
 }
 
@@ -61,76 +61,77 @@
      [self.button3 setTitle:self.currentQuestion[@"answer3"] forState:UIControlStateNormal];
      [self.button4 setTitle:self.currentQuestion[@"answer4"] forState:UIControlStateNormal];
     self.correctAnswer = self.currentQuestion[@"correctAnswer"];
+     [self.nextButton setTitle:@"Next question" forState:UIControlStateNormal];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-  
 }
 
 - (IBAction)nextButtonClicked:(id)sender {
+    self.clicks++;
+    if(self.clicks == 5){
+        [self pauseGame:@"Your results so far"];
+        [self.nextButton setTitle:@"Continue" forState:UIControlStateNormal];
+        
+    } else if (self.clicks == 11){
+        [self pauseGame:@"Game is finished!"];
+        [self.nextButton setTitle:@"Play again" forState:UIControlStateNormal];
+        
+    } else if (self.clicks == 12){
+        [self startNewGame];
+        
+    } else {
     self.questionNr++;
-    self.questionFeedback.text = @"";
-    self.questionTitle.text = [NSString stringWithFormat:@"Question %d", self.questionNr];
-    [self setUpQuestion];
-    [self enableAnswerButtons];
+        self.questionFeedback.text = @"";
+        self.questionTitle.text = [NSString stringWithFormat:@"Question %d", self.questionNr];
+        [self setUpQuestion];
+        [self enableAnswerButtons];
+    }
 }
 
 - (IBAction)button1Clicked:(id)sender {
-    [self checkAnswerButton: [sender titleForState:UIControlStateSelected]];
+    [self checkAnswer: [sender titleForState:UIControlStateSelected]];
 }
 
 - (IBAction)button2Clicked:(id)sender {
-      [self checkAnswerButton: [sender titleForState:UIControlStateSelected]];
+      [self checkAnswer: [sender titleForState:UIControlStateSelected]];
 }
 
 - (IBAction)button3Clicked:(id)sender {
-      [self checkAnswerButton: [sender titleForState:UIControlStateSelected]];
+      [self checkAnswer: [sender titleForState:UIControlStateSelected]];
 }
 
 - (IBAction)button4Clicked:(id)sender {
-      [self checkAnswerButton: [sender titleForState:UIControlStateSelected]];
+      [self checkAnswer: [sender titleForState:UIControlStateSelected]];
 }
 
-- (void)checkAnswerButton:(NSString*)answer {
+- (void)checkAnswer:(NSString*)answer {
     if([answer isEqualToString:self.correctAnswer]){
         self.questionFeedback.text = @"Correct answer!";
         self.correctGuesses++;
-        [GameModel setCorrectGuesses:self.correctGuesses];
        
     } else {
         self.questionFeedback.text = [NSString stringWithFormat:@"Wrong answer, the correct answer should be: %@", self.correctAnswer];
          self.wrongGuesses++;
-       [GameModel setWrongGuesses:self.wrongGuesses];
     }
-    [self disableAnswerButtons];
-    NSLog(@"Correct: %d, Wrong: %d", self.correctGuesses, self.wrongGuesses);
     
-         [self checkResult];
+    [self disableAnswerButtons];
+    [self checkResult];
 }
 
 -(void)checkResult {
-    if(self.correctGuesses + self.wrongGuesses == 5){
-           self.nextButton.hidden = YES;
-        self.checkResultButton.hidden = NO;
-        /*
-        NSString * storyboardName = @"Main";
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-        UIViewController * resultView = [storyboard instantiateViewControllerWithIdentifier:@"ResultWindow"];
-        [self presentViewController:resultView animated:YES completion:nil];
-         */
-        
-        NSLog(@"Checking result");
-        
-        NSString * storyboardName = @"Main";
-        UIStoryboard *storyboard = [UIStoryboard storyboardWithName:storyboardName bundle: nil];
-        UIViewController * resultView = [storyboard instantiateViewControllerWithIdentifier:@"ResultWindow"];
-        
-        [self.navigationController pushViewController:resultView animated:YES];
-           NSLog(@"Pushing viewcontroller");
-        
-        
+
+    if(self.correctGuesses + self.wrongGuesses == 5 || self.correctGuesses + self.wrongGuesses == 10){
+        [self.nextButton setTitle:@"See stats" forState:UIControlStateNormal];
     }
+}
+
+-(void)pauseGame:(NSString*)text {
+    self.questionTitle.text = text;
+    self.questionText.text = [NSString stringWithFormat:@"Correct guesses: %d \n Wrong guesses: %d", self.correctGuesses, self.wrongGuesses];
+    self.questionFeedback.text = @"";
+    [self disableAnswerButtons];
 }
 
 /*
@@ -140,11 +141,10 @@
     NSLog(@"Prepare for segue, %@", segue.identifier);
     
     if([segue.identifier isEqualToString:@"ResultSegue"]){
-      
-    
+ 
   ResultsViewController *resultView = [segue destinationViewController];
-        resultView.corrAnswersInt.text = [NSString stringWithFormat:@"%d", self.correctGuesses];
-        resultView.wrongAnswersInt.text = [NSString stringWithFormat:@"%d", self.wrongGuesses];
+        resultView.corrAnswers.text = [NSString stringWithFormat:@"%d", self.correctGuesses];
+        resultView.wrongAnswers.text = [NSString stringWithFormat:@"%d", self.wrongGuesses];
         
         NSLog(@" IF; Wrong: %@", resultView.wrongAnswersInt.text); 
     }
@@ -166,26 +166,5 @@
     self.button4.enabled = YES;
     self.nextButton.hidden = YES;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

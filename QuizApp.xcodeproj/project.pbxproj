@@ -15,8 +15,6 @@
 		7FF1A2152019258700720790 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FF1A2132019258700720790 /* LaunchScreen.storyboard */; };
 		7FF1A2182019258700720790 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF1A2172019258700720790 /* main.m */; };
 		7FF1A220201925B100720790 /* GameModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF1A21F201925B100720790 /* GameModel.m */; };
-		7FF1A2232019273800720790 /* PlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF1A2222019273800720790 /* PlayViewController.m */; };
-		7FF1A22620192DDC00720790 /* ResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FF1A22520192DDC00720790 /* ResultsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,10 +32,6 @@
 		7FF1A2172019258700720790 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		7FF1A21E201925B100720790 /* GameModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameModel.h; sourceTree = "<group>"; };
 		7FF1A21F201925B100720790 /* GameModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameModel.m; sourceTree = "<group>"; };
-		7FF1A2212019273800720790 /* PlayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayViewController.h; sourceTree = "<group>"; };
-		7FF1A2222019273800720790 /* PlayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayViewController.m; sourceTree = "<group>"; };
-		7FF1A22420192DDC00720790 /* ResultsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ResultsViewController.h; sourceTree = "<group>"; };
-		7FF1A22520192DDC00720790 /* ResultsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ResultsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,10 +75,6 @@
 				7FF1A2172019258700720790 /* main.m */,
 				7FF1A21E201925B100720790 /* GameModel.h */,
 				7FF1A21F201925B100720790 /* GameModel.m */,
-				7FF1A2212019273800720790 /* PlayViewController.h */,
-				7FF1A2222019273800720790 /* PlayViewController.m */,
-				7FF1A22420192DDC00720790 /* ResultsViewController.h */,
-				7FF1A22520192DDC00720790 /* ResultsViewController.m */,
 				7F0D08BE201B223E001E52F9 /* PlayGameViewController.h */,
 				7F0D08BF201B223E001E52F9 /* PlayGameViewController.m */,
 			);
@@ -166,8 +156,6 @@
 				7FF1A220201925B100720790 /* GameModel.m in Sources */,
 				7F0D08C0201B223E001E52F9 /* PlayGameViewController.m in Sources */,
 				7FF1A2182019258700720790 /* main.m in Sources */,
-				7FF1A22620192DDC00720790 /* ResultsViewController.m in Sources */,
-				7FF1A2232019273800720790 /* PlayViewController.m in Sources */,
 				7FF1A20A2019258700720790 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

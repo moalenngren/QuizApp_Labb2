@@ -17,10 +17,6 @@
 
 - (void)createQuestions;
 
-+(int)getCorrectGuesses;
-+(int)getWrongGuesses;
-+(void)setCorrectGuesses:(int)guesses;
-+(void)setWrongGuesses:(int)guesses;
 
 @end
 
