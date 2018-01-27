@@ -39,15 +39,6 @@
                                @"correctAnswer": @"Drop D"
                                },
                              
-                             @{@"question": @"What's it called when you tune down the lowest string on a guitar two half steps?",
-                               @"answer1":
-                                   @"DADGAD",
-                               @"answer2": @"Low key",
-                               @"answer3": @"Minor chord",
-                               @"answer4": @"Drop D",
-                               @"correctAnswer": @"Drop D"
-                               },
-                             
                              @{@"question": @"What of the following is NOT an actual note?",
                                @"answer1":
                                    @"A#",
@@ -123,10 +114,10 @@
                              @{@"question": @"Which of the following is the most famous live vocal microphone?",
                                @"answer1":
                                    @"Sennheizer 12C",
-                               @"answer2": @"Shure SM48",
+                               @"answer2": @"Shure SM58",
                                @"answer3": @"Niemann 1330",
                                @"answer4": @"JJ LABS K14",
-                               @"correctAnswer": @"Shure SM48"
+                               @"correctAnswer": @"Shure SM58"
                                },
                              
                              @{@"question": @"What does +48 stand for?",
@@ -144,11 +135,13 @@
 
 - (NSDictionary*)getQuestion {
     self.index = arc4random_uniform((int)self.questionsArray.count);
+      NSLog(@"Randomizing: %@", @(self.index));
     return self.questionsArray[self.index];
-//removeObjectsAtIndexes:index; //SPARA TILL EFTERÅT
+    
 }
 
 -(void)deleteQuestion {
+      NSLog(@"Deleting: %@", @(self.index));
     [self.questionsArray removeObjectAtIndex:self.index];
 }
 

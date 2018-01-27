@@ -14,9 +14,8 @@
 @property (nonatomic) int index;
 
 - (NSDictionary*)getQuestion;
-
 - (void)createQuestions;
-
+-(void)deleteQuestion;
 
 @end
 
