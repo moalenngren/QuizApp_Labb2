@@ -137,7 +137,6 @@
     self.index = arc4random_uniform((int)self.questionsArray.count);
       NSLog(@"Randomizing: %@", @(self.index));
     return self.questionsArray[self.index];
-    
 }
 
 -(void)deleteQuestion {
